@@ -143,6 +143,6 @@ class IndexState extends State<IndexPage> {
 
   Future<void> _handleCameraAndMic(Permission permission) async {
     final status = await permission.request();
-    print(status);
+    print('The Permission status is $status');
   }
 }
