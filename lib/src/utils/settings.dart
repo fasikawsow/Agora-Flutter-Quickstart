@@ -1,3 +1,5 @@
 /// Define App ID and Token
-const appId = 'e418e4243a6c45bebffacb632ae8139a';
-const token = '007eJxTYHi9Me2TS/4Oj7b0HfZbutc9k/Ou+fPP50TRqYpbWXuWxe5XYDAwtjAxMDJOsrBINjVJsTC1TDJPTktLTTG0tEwztDAxdLbnSD44gTP5p6YyEyMDBIL4PAwlqcUl8ckZiXl5qTkMDABk0CYy';
+const appId = 'ba25d2b2291f4056ab7d1e15dfe2b69d';
+const token =
+    '007eJxTYJBnUHfMt21ivb/uyqnIZ1snfqg/GndBuuv3h2zf/7elthxTYDC2NE+2TDSxNLMwMTAxMzdItEwyMDZMNDYwtUw0SjM0FK3jSJ50njP5HP9kZkYGCATx+RlyK+NLUotL4pMzEvPyUnMYGAAuUiXr';
+const channelIDDD = 'my_test_channel';

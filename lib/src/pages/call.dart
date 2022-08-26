@@ -65,7 +65,7 @@ class _CallPageState extends State<CallPage> {
     VideoEncoderConfiguration configuration = VideoEncoderConfiguration();
     configuration.dimensions = VideoDimensions(width: 1920, height: 1080);
     await _engine.setVideoEncoderConfiguration(configuration);
-    await _engine.joinChannel(token, widget.channelName!, null, 0);
+    await _engine.joinChannel(token, channelIDDD, null, 0);
   }
 
   /// Create agora sdk instance and initialize
@@ -73,7 +73,7 @@ class _CallPageState extends State<CallPage> {
     _engine = await RtcEngine.create(appId);
     final _value = await _engine.getSdkVersion();
     debugPrint('The Sdk Version is$_value');
-    // await _engine.setParameters(parameters);
+    // await _engine.setParameters();
     await _engine.enableVideo();
     await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
     await _engine.setClientRole(widget.role!);
@@ -86,6 +86,8 @@ class _CallPageState extends State<CallPage> {
         final info = 'onError: $code';
         _infoStrings.add(info);
       });
+    }, warning: (code) {
+      debugPrint('Warning $code');
     }, joinChannelSuccess: (channel, uid, elapsed) {
       setState(() {
         final info = 'onJoinChannel: $channel, uid: $uid';
@@ -108,6 +110,11 @@ class _CallPageState extends State<CallPage> {
         _infoStrings.add(info);
         _users.remove(uid);
       });
+    }, remoteVideoStats: (stats) {
+      debugPrint('remote video status${stats.uid}');
+      debugPrint('remote video status${stats.width}');
+      debugPrint('remote video status${stats.decoderOutputFrameRate}');
+      debugPrint('remote video status${stats.uid}');
     }, firstRemoteVideoFrame: (uid, width, height, elapsed) {
       setState(() {
         final info = 'firstRemoteVideo: $uid ${width}x $height';
