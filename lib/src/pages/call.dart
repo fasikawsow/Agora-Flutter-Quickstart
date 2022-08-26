@@ -78,13 +78,11 @@ class _CallPageState extends State<CallPage> {
     await _engine.enableVideo();
     await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
     await _engine.setClientRole(widget.role!);
-
   }
 
   /// Add agora event handlers
   void _addAgoraEventHandlers() {
-    _engine.setEventHandler(RtcEngineEventHandler(
-    error: (code) {
+    _engine.setEventHandler(RtcEngineEventHandler(error: (code) {
       setState(() {
         final info = 'onError: $code';
         _infoStrings.add(info);
@@ -92,6 +90,7 @@ class _CallPageState extends State<CallPage> {
     }, warning: (code) {
       debugPrint('Warning $code');
     }, joinChannelSuccess: (channel, uid, elapsed) {
+      debugPrint('onJoinChannel: $channel, uid: $uid');
       setState(() {
         final info = 'onJoinChannel: $channel, uid: $uid';
         _infoStrings.add(info);
@@ -113,8 +112,7 @@ class _CallPageState extends State<CallPage> {
         _infoStrings.add(info);
         _users.remove(uid);
       });
-    },
-     remoteVideoStats: (stats) {
+    }, remoteVideoStats: (stats) {
       debugPrint('------> remote video status  uid ${stats.uid}');
       // debugPrint('remote video status width ${stats.width}');
       // debugPrint('remote video status Fram  ${stats.decoderOutputFrameRate}');
@@ -129,15 +127,15 @@ class _CallPageState extends State<CallPage> {
   /// Helper function to get list of native views
   List<Widget> _getRenderViews() {
     final List<StatefulWidget> list = [];
-    // if (widget.role == ClientRole.Broadcaster) {
-    //   list.add(RtcLocalView.SurfaceView());
-    // }
+    if (widget.role == ClientRole.Broadcaster) {
+      list.add(RtcLocalView.SurfaceView());
+    }
     _users.forEach((int uid) {
       debugPrint('--->The remote view uid is$uid');
       debugPrint('--->The remote view channel is$channelIDDD');
-      
-      return list.add(
-          RtcRemoteView.SurfaceView(channelId: channelIDDD, uid: uid));
+
+      return list
+          .add(RtcRemoteView.SurfaceView(channelId: channelIDDD, uid: uid));
     });
     return list;
   }
